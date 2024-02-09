@@ -1,8 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const SearchBar = () => {
+const SearchBar = (props) => {
+
+  const [jobCriteria, setJobCriteria] = useState({
+    title: "",
+    locaion: "",
+    experience: "",
+    type:""
+})
+
+const handleChange = (e) => {
+    setJobCriteria((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value
+    }))
+}
+const search = async() => {
+  await props.fetchJobsCustom(jobCriteria);
+}
+
   return (
     <div className='flex gap-4 my-10 justify-center px-10'>
+
     <select onChange={handleChange} name="title" value={jobCriteria.title} className='w-64 py-3 pl-4 bg-zinc-200 font-semibold rounded-md'>
         <option value="" disabled hidden>Job Role</option>
         <option value="iOS Developer">iOS Developer</option>
